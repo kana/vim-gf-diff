@@ -1,0 +1,26 @@
+==== gfdiff_calculate_better_lineno 
+---- It should work properly. 
+........
+
+==== gfdiff_investigate_the_hunk_under_the_cursor 
+---- It should work properly. 
+..........................
+
+==== gfdiff_parse_diff_header_line 
+---- It should work properly. 
+.....
+
+==== gfdiff_parse_hunk 
+---- It should work properly. 
+....
+
+==== gfdiff_parse_hunk_header_line 
+---- It should work properly. 
+.....
+
+
+
+**** Result ****
+
+
+48 examples, 0 failures

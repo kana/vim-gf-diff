@@ -1,0 +1,14 @@
+==== NamedKeyMappings 
+---- It should define named key mappings properly. 
+..
+
+==== gfdiff_go 
+---- It should work properly. 
+.......
+
+
+
+**** Result ****
+
+
+9 examples, 0 failures

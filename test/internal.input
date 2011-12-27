@@ -1,0 +1,164 @@
+function s:describe__gfdiff_parse_hunk_header_line()  "{{{1
+  It should work properly.
+
+  Should gfdiff#parse_hunk_header_line('@@ -787,14 +787,6 @@') == [787, 787]
+  Should gfdiff#parse_hunk_header_line('@@ -803,6 +1795,14 @@') == [803, 1795]
+  Should gfdiff#parse_hunk_header_line('@@ -803,6 +1795,14 @@ main(ac, av)') == [803, 1795]
+  Should gfdiff#parse_hunk_header_line('@ -1803,6 +1795,14 @@') == 0
+  Should gfdiff#parse_hunk_header_line('@@ -1803,6 +1795,14 @') == 0
+endfunction
+
+
+
+
+function s:describe__gfdiff_parse_hunk()  "{{{1
+  It should work properly.
+
+  Should gfdiff#parse_hunk(['@@ ...', '', '', '', '']) == [-1, -1]
+  Should gfdiff#parse_hunk(['@@ ...', '', '+', '', '']) == [-1, 1]
+  Should gfdiff#parse_hunk(['@@ ...', '', '', '-', '']) == [2, -1]
+  Should gfdiff#parse_hunk(['@@ ...', '', '+', '-', '']) == [2, 1]
+endfunction
+
+
+
+
+function s:describe__gfdiff_parse_diff_header_line()  "{{{1
+  It should work properly.
+
+  Should gfdiff#parse_diff_header_line('diff --git a/foo/bar/baz.qux b/foo/bar/baz.qux') == ['foo/bar/baz.qux', 'foo/bar/baz.qux']
+  Should gfdiff#parse_diff_header_line('diff --git a/foo/bar/baz.qux foo/bar/baz.qux') == ['foo/bar/baz.qux', 'foo/bar/baz.qux']
+  Should gfdiff#parse_diff_header_line('diff --git foo/bar/baz.qux b/foo/bar/baz.qux') == ['foo/bar/baz.qux', 'foo/bar/baz.qux']
+  Should gfdiff#parse_diff_header_line('diff --git foo/bar/baz.qux foo/bar/baz.qux') == ['foo/bar/baz.qux', 'foo/bar/baz.qux']
+  Should gfdiff#parse_diff_header_line('diff --git a/foo.c b/bar.c') == ['foo.c', 'bar.c']
+endfunction
+
+
+
+
+function s:describe__gfdiff_investigate_the_hunk_under_the_cursor()  "{{{1
+  It should work properly.
+
+  tabnew
+  append!
+diff --git a/autoload/gfdiff.vim.orig b/autoload/gfdiff.vim
+index 469fdb3..b135316 100644
+--- a/autoload/gfdiff.vim.orig
++++ b/autoload/gfdiff.vim
+@@ -21,7 +22,7 @@
+ "     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ "
+ " Interface
+-function! gfdiff#go_to_hunk(type)
++function! gfdiff#go(type)
+   let d = gfdiff#investigate_the_hunk_under_the_cursor()
+   if d is 0
+     echomsg 'There is no diff hunk to jump.'
+@@ -113,7 +114,7 @@ function! gfdiff#investigate_the_hunk_under_the_cursor()
+       return 0
+     endif
+     let [d.from_path, d.to_path] = xs
++  call setpos('.', original_position)
+-  call setpos(original_position)
+ 
+   return d
+ endfunction
+diff --git a/test/internal.input b/test/internal.input
+index 5395371..8ac577f 100644
+--- a/test/internal.input
++++ b/test/internal.input
+@@ -37,7 +38,9 @@ endfunction
+ function s:describe__gfdiff_investigate_the_hunk_under_the_cursor()
+   It should work properly.
+ 
++  tabnew
++    j
+-  " FIXME: NWY
++  tabclose!
+ endfunction
+ 
+ 
+.
+
+    normal! 6gg
+    let pos = getpos('.')
+    let d = gfdiff#investigate_the_hunk_under_the_cursor()
+    Should getpos('.') == pos
+    Should type(d) == type({})
+    Should d.from_first_lineno == 21
+    Should d.to_first_lineno == 22
+    Should d.firstly_deleted_offset == 3
+    Should d.firstly_inserted_offset == 4
+    Should d.from_path ==# 'autoload/gfdiff.vim.orig'
+    Should d.to_path ==# 'autoload/gfdiff.vim'
+    unlet d
+
+    normal! 14gg
+    let pos = getpos('.')
+    let d = gfdiff#investigate_the_hunk_under_the_cursor()
+    Should getpos('.') == pos
+    Should type(d) == type({})
+    Should d.from_first_lineno == 113
+    Should d.to_first_lineno == 114
+    Should d.firstly_deleted_offset == 4
+    Should d.firstly_inserted_offset == 3
+    Should d.from_path ==# 'autoload/gfdiff.vim.orig'
+    Should d.to_path ==# 'autoload/gfdiff.vim'
+    unlet d
+
+    normal! 35gg
+    let pos = getpos('.')
+    let d = gfdiff#investigate_the_hunk_under_the_cursor()
+    Should getpos('.') == pos
+    Should type(d) == type({})
+    Should d.from_first_lineno == 37
+    Should d.to_first_lineno == 38
+    Should d.firstly_deleted_offset == 5
+    Should d.firstly_inserted_offset == 3
+    Should d.from_path ==# 'test/internal.input'
+    Should d.to_path ==# 'test/internal.input'
+    unlet d
+
+    normal! 3gg
+    let pos = getpos('.')
+    let d = gfdiff#investigate_the_hunk_under_the_cursor()
+    Should getpos('.') == pos
+    Should d is 0
+    unlet d
+  tabclose!
+endfunction
+
+
+
+
+function s:describe__gfdiff_calculate_better_lineno()  "{{{1
+  It should work properly.
+
+  let f = {}
+  function! f.c(type, flineno, tlineno, doffset, ioffset)
+    return gfdiff#calculate_better_lineno(
+    \   a:type,
+    \   {
+    \     'from_first_lineno': a:flineno,
+    \     'to_first_lineno': a:tlineno,
+    \     'firstly_deleted_offset': a:doffset,
+    \     'firstly_inserted_offset': a:ioffset,
+    \   }
+    \ )
+  endfunction
+
+  Should f.c('to', 100, 200, -1, -1) == 200
+  Should f.c('to', 100, 200, 3, -1) == 202
+  Should f.c('to', 100, 200, -1, 4) == 204
+  Should f.c('to', 100, 200, 3, 4) == 202
+  Should f.c('from', 100, 200, -1, -1) == 100
+  Should f.c('from', 100, 200, 3, -1) == 102
+  Should f.c('from', 100, 200, -1, 4) == 104
+  Should f.c('from', 100, 200, 3, 4) == 102
+endfunction
+
+
+
+
+" __END__  "{{{1
+" vim: filetype=vim foldmethod=marker

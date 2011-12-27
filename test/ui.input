@@ -1,0 +1,97 @@
+runtime! plugin/gfdiff.vim
+
+function! CheckMapModes(lhs)
+  let _ = ['n', 'x', 's', 'o', 'i', 'c', 'l']
+  call map(_, 'maparg(' . string(a:lhs) . ', v:val)')
+  call map(_, 'v:val != ""')
+  return _
+endfunction
+
+function s:describe__NamedKeyMappings()  "{{{1
+  It should define named key mappings properly.
+
+  Should CheckMapModes('<Plug>(gfdiff-from)') ==# [1, 0, 0, 0, 0, 0, 0]
+  Should CheckMapModes('<Plug>(gfdiff-to)') ==# [1, 0, 0, 0, 0, 0, 0]
+endfunction
+
+
+
+
+function s:describe__gfdiff_go()  "{{{1
+  It should work properly.
+
+  tabnew
+  append!
+diff --git a/autoload/gfdiff.vim.orig b/autoload/gfdiff.vim
+index 469fdb3..b135316 100644
+--- a/autoload/gfdiff.vim.orig
++++ b/autoload/gfdiff.vim
+@@ -21,7 +22,7 @@
+ "     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ "
+ " Interface
+-function! gfdiff#go_to_hunk(type)
++function! gfdiff#go(type)
+   let d = gfdiff#investigate_the_hunk_under_the_cursor()
+   if d is 0
+     echomsg 'There is no diff hunk to jump.'
+@@ -113,7 +114,7 @@ function! gfdiff#investigate_the_hunk_under_the_cursor()
+       return 0
+     endif
+     let [d.from_path, d.to_path] = xs
++  call setpos('.', original_position)
+-  call setpos(original_position)
+ 
+   return d
+ endfunction
+diff --git a/test/internal.input b/test/internal.input
+index 5395371..8ac577f 100644
+--- a/test/internal.input
++++ b/test/internal.input
+@@ -37,7 +38,9 @@ endfunction
+ function s:describe__gfdiff_investigate_the_hunk_under_the_cursor()
+   It should work properly.
+ 
++  tabnew
++    j
+-  " FIXME: NWY
++  tabclose!
+ endfunction
+ 
+ 
+.
+
+    split
+      normal! 6gg
+      let diff_bufnr = bufnr('')
+      let d = gfdiff#investigate_the_hunk_under_the_cursor()
+      silent call gfdiff#go('to')
+      Should bufnr('') != diff_bufnr
+      Should bufname('') ==# d.to_path
+      Should line('.') == gfdiff#calculate_better_lineno('to', d)
+    close
+
+    split
+      normal! 6gg
+      let diff_bufnr = bufnr('')
+      let d = gfdiff#investigate_the_hunk_under_the_cursor()
+      silent execute 'normal' "\<Plug>(gfdiff-to)"
+      Should bufnr('') != diff_bufnr
+      Should bufname('') ==# d.to_path
+      Should line('.') == gfdiff#calculate_better_lineno('to', d)
+    close
+
+    split
+      normal! 3gg
+      let diff_pos = getpos('.')
+      silent call gfdiff#go('to')
+      Should getpos('.') == diff_pos
+    close
+  tabclose!
+endfunction
+
+
+
+
+" __END__  "{{{1
+" vim: filetype=vim foldmethod=marker
