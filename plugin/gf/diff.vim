@@ -1,6 +1,6 @@
 " gf-diff - Go to a hunk from diff output
 " Version: 0.0.0
-" Copyright (C) 2011 Kana Natsuno <http://whileimautomaton.net/>
+" Copyright (C) 2011-2012 Kana Natsuno <http://whileimautomaton.net/>
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
 "     a copy of this software and associated documentation files (the
