@@ -1,4 +1,4 @@
-" gfdiff - gf for diff output
+" gf-diff - gf for diff output
 " Version: 0.0.0
 " Copyright (C) 2011 Kana Natsuno <http://whileimautomaton.net/>
 " License: MIT license  {{{
@@ -22,20 +22,20 @@
 "     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 " }}}
 
-if exists('g:loaded_gfdiff')
+if exists('g:loaded_gf_diff')
   finish
 endif
 
 
 
 
-nnoremap <silent> <Plug>(gfdiff-from)  :<C-u>call gfdiff#go('from')<Return>
-nnoremap <silent> <Plug>(gfdiff-to)  :<C-u>call gfdiff#go('to')<Return>
+nnoremap <silent> <Plug>(gf-diff-from)  :<C-u>call gf#diff#go('from')<Return>
+nnoremap <silent> <Plug>(gf-diff-to)  :<C-u>call gf#diff#go('to')<Return>
 
 
 
 
-let g:loaded_gfdiff = 1
+let g:loaded_gf_diff = 1
 
 " __END__
 " vim: foldmethod=marker

@@ -1,4 +1,4 @@
-" gfdiff - gf for diff output
+" gf-diff - gf for diff output
 " Version: 0.0.0
 " Copyright (C) 2011 Kana Natsuno <http://whileimautomaton.net/>
 " License: MIT license  {{{
@@ -22,15 +22,15 @@
 "     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 " }}}
 " Interface  "{{{1
-function! gfdiff#go(type)  "{{{2
-  let d = gfdiff#investigate_the_hunk_under_the_cursor()
+function! gf#diff#go(type)  "{{{2
+  let d = gf#diff#investigate_the_hunk_under_the_cursor()
   if d is 0
     echomsg 'There is no diff hunk to jump.'
     return
   endif
 
   edit `=(a:type ==# 'to' ? d.to_path : d.from_path)`
-  execute 'normal!' (gfdiff#calculate_better_lineno(a:type, d) . 'gg')
+  execute 'normal!' (gf#diff#calculate_better_lineno(a:type, d) . 'gg')
 endfunction
 
 
@@ -41,7 +41,7 @@ endfunction
 
 
 " Misc.  "{{{1
-function! gfdiff#parse_hunk_header_line(line)  "{{{2
+function! gf#diff#parse_hunk_header_line(line)  "{{{2
   " Line -> Maybe (LineNo, LineNo)
   let parts = matchlist(a:line, '^@@ -\(\d\+\),\d\+ +\(\d\+\),\d\+ @@')
   return parts == [] ? 0 : map(parts[1:2], 'str2nr(v:val, 10)')
@@ -50,7 +50,7 @@ endfunction
 
 
 
-function! gfdiff#parse_hunk(lines)  "{{{2
+function! gf#diff#parse_hunk(lines)  "{{{2
   " [Line] -> (LineOffset, LineOffset)
   let firstly_deleted_offset = -1
   for i in range(len(a:lines))
@@ -74,7 +74,7 @@ endfunction
 
 
 
-function! gfdiff#parse_diff_header_line(line)  "{{{2
+function! gf#diff#parse_diff_header_line(line)  "{{{2
   " Line -> Maybe (LineNo, LineNo)
   let parts = matchlist(a:line, '\v^diff \-\-git %(a\/)?(\S+) %(b\/)?(\S+)$')
   return parts == [] ? 0 : parts[1:2]
@@ -83,7 +83,7 @@ endfunction
 
 
 
-function! gfdiff#investigate_the_hunk_under_the_cursor()  "{{{2
+function! gf#diff#investigate_the_hunk_under_the_cursor()  "{{{2
   " <<<CurrentBuffer>>> -> VariousInformation
   " FIXME: Support more diff formats other than Git diff.
   let original_position = getpos('.')
@@ -100,7 +100,7 @@ function! s:investigate_the_hunk_under_the_cursor()
   if hunk_lineno == 0
     return 0
   endif
-  let xs = gfdiff#parse_hunk_header_line(getline(hunk_lineno))
+  let xs = gf#diff#parse_hunk_header_line(getline(hunk_lineno))
   if xs is 0
     return 0
   endif
@@ -111,13 +111,13 @@ function! s:investigate_the_hunk_under_the_cursor()
     let next_block_lineno = line('$')
   endif
   let [d.firstly_deleted_offset, d.firstly_inserted_offset] =
-        \ gfdiff#parse_hunk(getline(hunk_lineno, next_block_lineno))
+        \ gf#diff#parse_hunk(getline(hunk_lineno, next_block_lineno))
 
   let [diff_header_lineno, _] = searchpos('^diff ', 'bW')
   if diff_header_lineno == 0
     return 0
   endif
-  let xs = gfdiff#parse_diff_header_line(getline(diff_header_lineno))
+  let xs = gf#diff#parse_diff_header_line(getline(diff_header_lineno))
   if xs is 0
     return 0
   endif
@@ -129,7 +129,7 @@ endfunction
 
 
 
-function! gfdiff#calculate_better_lineno(type, d)  "{{{2
+function! gf#diff#calculate_better_lineno(type, d)  "{{{2
   " Type -> HunkInfo -> LineNo
   " FIXME: Reverse offset usage for non-Git diff if a:type ==# 'from'.
   let lineno = a:type ==# 'from' ? a:d.from_first_lineno : a:d.to_first_lineno

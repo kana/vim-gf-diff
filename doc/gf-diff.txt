@@ -1,4 +1,4 @@
-*gfdiff.txt*	gf for diff output
+*gf-diff.txt*	gf for diff output
 
 Version 0.0.0
 Script ID: ****
@@ -24,23 +24,23 @@ License: MIT license  {{{
     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 }}}
 
-CONTENTS					*gfdiff-contents*
+CONTENTS					*gf-diff-contents*
 
-Introduction            |gfdiff-introduction|
-Interface               |gfdiff-interface|
-  Functions               |gfdiff-functions|
-  Key Mappings            |gfdiff-key-mappings|
-Examples                |gfdiff-examples|
-Bugs                    |gfdiff-bugs|
-Changelog               |gfdiff-changelog|
+Introduction            |gf-diff-introduction|
+Interface               |gf-diff-interface|
+  Functions               |gf-diff-functions|
+  Key Mappings            |gf-diff-key-mappings|
+Examples                |gf-diff-examples|
+Bugs                    |gf-diff-bugs|
+Changelog               |gf-diff-changelog|
 
 
 
 
 ==============================================================================
-INTRODUCTION					*gfdiff-introduction*
+INTRODUCTION					*gf-diff-introduction*
 
-*gfdiff* is a Vim plugin to provide variants of |gf|.  |gf| opens the file
+*gf-diff* is a Vim plugin to provide variants of |gf|.  |gf| opens the file
 whose name is under or after the cursor, while the variants open and move to
 a proper position in a file depending on the diff hunk under the cursor.
 
@@ -49,21 +49,21 @@ Requirements:
 - Vim 7.3 or later
 
 Latest version:
-http://github.com/kana/vim-gfdiff
+http://github.com/kana/vim-gf-diff
 
 Document in HTML format:
-http://kana.github.com/config/vim/gfdiff.html
+http://kana.github.com/config/vim/gf-diff.html
 
 
 
 
 ==============================================================================
-INTERFACE					*gfdiff-interface*
+INTERFACE					*gf-diff-interface*
 
 ------------------------------------------------------------------------------
-FUNCTIONS					*gfdiff-functions*
+FUNCTIONS					*gf-diff-functions*
 
-gfdiff#go({type})				*gfdiff#go()*
+gf#diff#go({type})				*gf#diff#go()*
 			Like |gf|, but open a file and move the cursor to
 			a proper position depending on the diff hunk under the
 			cursor.
@@ -76,33 +76,33 @@ gfdiff#go({type})				*gfdiff#go()*
 
 
 ------------------------------------------------------------------------------
-KEY MAPPINGS					*gfdiff-key-mappings*
+KEY MAPPINGS					*gf-diff-key-mappings*
 
-NAMED KEY MAPPINGS				*gfdiff-named-key-mappings*
+NAMED KEY MAPPINGS				*gf-diff-named-key-mappings*
 
-<Plug>(gfdiff-from)				*<Plug>(gfdiff-from)*
-			Equivalent to gfdiff#go("from").
+<Plug>(gf-diff-from)				*<Plug>(gf-diff-from)*
+			Equivalent to gf#diff#go("from").
 
-<Plug>(gfdiff-to)				*<Plug>(gfdiff-to)*
-			Equivalent to gfdiff#go("to").
+<Plug>(gf-diff-to)				*<Plug>(gf-diff-to)*
+			Equivalent to gf#diff#go("to").
 
 
 
 
 ==============================================================================
-EXAMPLES					*gfdiff-examples*
+EXAMPLES					*gf-diff-examples*
 
 (A) To open a file by diff output with "gh", add the following line into your
 |vimrc|:
 >
-	nmap gh  <Plug>(gfdiff-to)
+	nmap gh  <Plug>(gf-diff-to)
 <
 
 
 
 
 ==============================================================================
-BUGS						*gfdiff-bugs*
+BUGS						*gf-diff-bugs*
 
 (A) Currently the following diff formats are supported:
 
@@ -112,9 +112,9 @@ BUGS						*gfdiff-bugs*
 
 
 ==============================================================================
-CHANGELOG					*gfdiff-changelog*
+CHANGELOG					*gf-diff-changelog*
 
-0.0.0	2011-12-28T01:06:54+09:00		*gfdiff-changelog-0.0.0*
+0.0.0	2011-12-28T01:06:54+09:00		*gf-diff-changelog-0.0.0*
 	- Initial version.
 
 

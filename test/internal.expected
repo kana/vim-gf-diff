@@ -1,20 +1,20 @@
-==== gfdiff_calculate_better_lineno 
+==== gf_diff_calculate_better_lineno 
 ---- It should work properly. 
 ........
 
-==== gfdiff_investigate_the_hunk_under_the_cursor 
+==== gf_diff_investigate_the_hunk_under_the_cursor 
 ---- It should work properly. 
 ..........................
 
-==== gfdiff_parse_diff_header_line 
+==== gf_diff_parse_diff_header_line 
 ---- It should work properly. 
 .....
 
-==== gfdiff_parse_hunk 
+==== gf_diff_parse_hunk 
 ---- It should work properly. 
 ....
 
-==== gfdiff_parse_hunk_header_line 
+==== gf_diff_parse_hunk_header_line 
 ---- It should work properly. 
 .....
 
