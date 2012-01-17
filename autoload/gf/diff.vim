@@ -1,4 +1,4 @@
-" gf-diff - gf for diff output
+" gf-diff - Go to a hunk from diff output
 " Version: 0.0.0
 " Copyright (C) 2011 Kana Natsuno <http://whileimautomaton.net/>
 " License: MIT license  {{{
