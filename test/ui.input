@@ -1,23 +1,7 @@
+runtime! plugin/gf/user.vim
 runtime! plugin/gf/diff.vim
 
-function! CheckMapModes(lhs)
-  let _ = ['n', 'x', 's', 'o', 'i', 'c', 'l']
-  call map(_, 'maparg(' . string(a:lhs) . ', v:val)')
-  call map(_, 'v:val != ""')
-  return _
-endfunction
-
-function s:describe__NamedKeyMappings()  "{{{1
-  It should define named key mappings properly.
-
-  Should CheckMapModes('<Plug>(gf-diff-from)') ==# [1, 0, 0, 0, 0, 0, 0]
-  Should CheckMapModes('<Plug>(gf-diff-to)') ==# [1, 0, 0, 0, 0, 0, 0]
-endfunction
-
-
-
-
-function s:describe__gf_diff_go()  "{{{1
+function s:describe__gf()  "{{{1
   It should work properly.
 
   tabnew
@@ -65,17 +49,7 @@ index 5395371..8ac577f 100644
       normal! 6gg
       let diff_bufnr = bufnr('')
       let d = gf#diff#investigate_the_hunk_under_the_cursor()
-      silent call gf#diff#go('to')
-      Should bufnr('') != diff_bufnr
-      Should bufname('') ==# d.to_path
-      Should line('.') == gf#diff#calculate_better_lineno('to', d)
-    close
-
-    split
-      normal! 6gg
-      let diff_bufnr = bufnr('')
-      let d = gf#diff#investigate_the_hunk_under_the_cursor()
-      silent execute 'normal' "\<Plug>(gf-diff-to)"
+      silent execute 'normal' 'gf'
       Should bufnr('') != diff_bufnr
       Should bufname('') ==# d.to_path
       Should line('.') == gf#diff#calculate_better_lineno('to', d)
@@ -84,7 +58,7 @@ index 5395371..8ac577f 100644
     split
       normal! 3gg
       let diff_pos = getpos('.')
-      silent call gf#diff#go('to')
+      silent execute 'normal' 'gf'
       Should getpos('.') == diff_pos
     close
   tabclose!

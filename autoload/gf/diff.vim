@@ -22,15 +22,16 @@
 "     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 " }}}
 " Interface  "{{{1
-function! gf#diff#go(type)  "{{{2
+function! gf#diff#find()  "{{{2
   let d = gf#diff#investigate_the_hunk_under_the_cursor()
-  if d is 0
-    echomsg 'There is no diff hunk to jump.'
-    return
-  endif
-
-  edit `=(a:type ==# 'to' ? d.to_path : d.from_path)`
-  execute 'normal!' (gf#diff#calculate_better_lineno(a:type, d) . 'gg')
+  return
+  \ d is 0
+  \ ? 0
+  \ : {
+  \     'path': d.to_path,
+  \     'line': gf#diff#calculate_better_lineno('to', d),
+  \     'col': 0,
+  \   }
 endfunction
 
 

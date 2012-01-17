@@ -1,14 +1,10 @@
-==== NamedKeyMappings 
----- It should define named key mappings properly. 
-..
-
-==== gf_diff_go 
+==== gf 
 ---- It should work properly. 
-.......
+....
 
 
 
 **** Result ****
 
 
-9 examples, 0 failures
+4 examples, 0 failures

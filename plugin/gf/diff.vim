@@ -29,8 +29,7 @@ endif
 
 
 
-nnoremap <silent> <Plug>(gf-diff-from)  :<C-u>call gf#diff#go('from')<Return>
-nnoremap <silent> <Plug>(gf-diff-to)  :<C-u>call gf#diff#go('to')<Return>
+call gf#user#extend('gf#diff#find', 2000)
 
 
 
