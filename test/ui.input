@@ -55,6 +55,7 @@ function s:describe__gf()  "{{{1
       Should bufnr('') != diff_bufnr
       Should bufname('') ==# d.to_path
       Should line('.') == gf#diff#calculate_better_lineno('to', d)
+      Should line('.') == 25
     close
 
     split

@@ -53,17 +53,21 @@ endfunction
 
 function! gf#diff#parse_hunk(lines)  "{{{2
   " [Line] -> (LineOffset, LineOffset)
+  let markers = map(copy(a:lines), 'v:val[0:0]')
+
   let firstly_deleted_offset = -1
-  for i in range(len(a:lines))
-    if a:lines[i][0:0] == '-'
+  let deleted_markers = filter(copy(markers), 'v:val != "+"')
+  for i in range(len(deleted_markers))
+    if deleted_markers[i] == '-'
       let firstly_deleted_offset = i - 1
       break
     endif
   endfor
 
   let firstly_inserted_offset = -1
-  for i in range(len(a:lines))
-    if a:lines[i][0:0] == '+'
+  let inserted_markers = filter(copy(markers), 'v:val != "-"')
+  for i in range(len(inserted_markers))
+    if inserted_markers[i] == '+'
       let firstly_inserted_offset = i - 1
       break
     endif
@@ -132,22 +136,11 @@ endfunction
 
 function! gf#diff#calculate_better_lineno(type, d)  "{{{2
   " Type -> HunkInfo -> LineNo
+  " Return the firstly changed line number.
   " FIXME: Reverse offset usage for non-Git diff if a:type ==# 'from'.
-  let lineno = a:type ==# 'from' ? a:d.from_first_lineno : a:d.to_first_lineno
-  if a:d.firstly_deleted_offset == -1 && a:d.firstly_inserted_offset == -1
-    return lineno + 0
-  elseif a:d.firstly_deleted_offset == -1 && a:d.firstly_inserted_offset != -1
-    return lineno + a:d.firstly_inserted_offset
-  elseif a:d.firstly_deleted_offset != -1 && a:d.firstly_inserted_offset == -1
-    return
-    \ lineno +
-    \ (a:d.firstly_deleted_offset == 0 ? 0 : a:d.firstly_deleted_offset - 1)
-  else " a:firstly_deleted_offset != -1 && a:firstly_inserted_offset != -1
-    " FIXME: Use smaller offset.
-    return
-    \ lineno +
-    \ (a:d.firstly_deleted_offset == 0 ? 0 : a:d.firstly_deleted_offset - 1)
-  endif
+  let base_lineno = a:type ==# 'from' ? a:d.from_first_lineno : a:d.to_first_lineno
+  let offsets = [a:d.firstly_deleted_offset, a:d.firstly_inserted_offset]
+  return base_lineno + min(filter(offsets, 'v:val != -1'))
 endfunction
 
 
