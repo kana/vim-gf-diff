@@ -5,6 +5,12 @@ function s:describe__gf()  "{{{1
   It should work properly.
 
   let text = [
+  \   'commit 3d7b818d6543e11ec706687c210360e4931fd43a',
+  \   'Author: Foo Bar <baz@qux>',
+  \   'Date:   Wed Jan 18 18:00:53 2012 +0900',
+  \   '',
+  \   '    Create a dummy commit to test vim-gf-diff',
+  \   '',
   \   'diff --git a/autoload/gf/diff.vim.orig b/autoload/gf/diff.vim',
   \   'index 469fdb3..b135316 100644',
   \   '--- a/autoload/gf/diff.vim.orig',
@@ -48,7 +54,7 @@ function s:describe__gf()  "{{{1
     call setline(1, text)
 
     split
-      normal! 6gg
+      normal! 12gg
       let diff_bufnr = bufnr('')
       let d = gf#diff#investigate_the_hunk_under_the_cursor()
       silent execute 'normal' 'gf'
@@ -59,7 +65,17 @@ function s:describe__gf()  "{{{1
     close
 
     split
-      normal! 3gg
+      normal! 9gg
+      let diff_pos = getpos('.')
+      silent execute 'normal' 'gf'
+      Should bufnr('') != diff_bufnr
+      Should bufname('') ==# d.to_path
+      Should line('.') == gf#diff#calculate_better_lineno('to', d)
+      Should line('.') == 25
+    close
+
+    split
+      normal! 6gg
       let diff_pos = getpos('.')
       silent execute 'normal' 'gf'
       Should getpos('.') == diff_pos

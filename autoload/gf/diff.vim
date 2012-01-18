@@ -101,10 +101,22 @@ endfunction
 function! s:investigate_the_hunk_under_the_cursor()
   let d = {}
 
-  let [hunk_lineno, _] = searchpos('\v^\@\@ ', 'bcW')
+  let [first_lineno, _] = searchpos('\V\^\(@@ \|diff \)', 'bcW')
+  if first_lineno == 0
+    return 0
+  endif
+
+  if getline(first_lineno) =~# '\V\^@@ '
+    let hunk_lineno = first_lineno
+  else  " if getline(first_lineno) =~# '\V\^diff '
+    " Use the first hunk of the current diff block if the cursor seems to be
+    " located between the diff header line and the first hunk header line.
+    let [hunk_lineno, _] = searchpos('\V\^@@ ', 'W')
+  endif
   if hunk_lineno == 0
     return 0
   endif
+
   let xs = gf#diff#parse_hunk_header_line(getline(hunk_lineno))
   if xs is 0
     return 0

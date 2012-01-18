@@ -4,7 +4,7 @@
 
 ==== gf_diff_investigate_the_hunk_under_the_cursor 
 ---- It should work properly. 
-..........................
+..................................
 
 ==== gf_diff_parse_diff_header_line 
 ---- It should work properly. 
@@ -23,4 +23,4 @@
 **** Result ****
 
 
-48 examples, 0 failures
+56 examples, 0 failures

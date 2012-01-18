@@ -40,6 +40,12 @@ function s:describe__gf_diff_investigate_the_hunk_under_the_cursor()  "{{{1
   It should work properly.
 
   let text = [
+  \   'commit 3d7b818d6543e11ec706687c210360e4931fd43a',
+  \   'Author: Foo Bar <baz@qux>',
+  \   'Date:   Wed Jan 18 18:00:53 2012 +0900',
+  \   '',
+  \   '    Create a dummy commit to test vim-gf-diff',
+  \   '',
   \   'diff --git a/autoload/gf/diff.vim.orig b/autoload/gf/diff.vim',
   \   'index 469fdb3..b135316 100644',
   \   '--- a/autoload/gf/diff.vim.orig',
@@ -82,7 +88,7 @@ function s:describe__gf_diff_investigate_the_hunk_under_the_cursor()  "{{{1
   tabnew
     call setline(1, text)
 
-    normal! 6gg
+    normal! 12gg
     let pos = getpos('.')
     let d = gf#diff#investigate_the_hunk_under_the_cursor()
     Should getpos('.') == pos
@@ -95,7 +101,7 @@ function s:describe__gf_diff_investigate_the_hunk_under_the_cursor()  "{{{1
     Should d.to_path ==# 'autoload/gf/diff.vim'
     unlet d
 
-    normal! 14gg
+    normal! 20gg
     let pos = getpos('.')
     let d = gf#diff#investigate_the_hunk_under_the_cursor()
     Should getpos('.') == pos
@@ -108,7 +114,7 @@ function s:describe__gf_diff_investigate_the_hunk_under_the_cursor()  "{{{1
     Should d.to_path ==# 'autoload/gf/diff.vim'
     unlet d
 
-    normal! 35gg
+    normal! 41gg
     let pos = getpos('.')
     let d = gf#diff#investigate_the_hunk_under_the_cursor()
     Should getpos('.') == pos
@@ -121,7 +127,20 @@ function s:describe__gf_diff_investigate_the_hunk_under_the_cursor()  "{{{1
     Should d.to_path ==# 'test/internal.input'
     unlet d
 
-    normal! 3gg
+    normal! 9gg
+    let pos = getpos('.')
+    let d = gf#diff#investigate_the_hunk_under_the_cursor()
+    Should getpos('.') == pos
+    Should type(d) == type({})
+    Should d.from_first_lineno == 21
+    Should d.to_first_lineno == 22
+    Should d.firstly_deleted_offset == 3
+    Should d.firstly_inserted_offset == 3
+    Should d.from_path ==# 'autoload/gf/diff.vim.orig'
+    Should d.to_path ==# 'autoload/gf/diff.vim'
+    unlet d
+
+    normal! 6gg
     let pos = getpos('.')
     let d = gf#diff#investigate_the_hunk_under_the_cursor()
     Should getpos('.') == pos
