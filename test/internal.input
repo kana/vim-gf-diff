@@ -39,46 +39,48 @@ endfunction
 function s:describe__gf_diff_investigate_the_hunk_under_the_cursor()  "{{{1
   It should work properly.
 
+  let text = [
+  \   'diff --git a/autoload/gf/diff.vim.orig b/autoload/gf/diff.vim',
+  \   'index 469fdb3..b135316 100644',
+  \   '--- a/autoload/gf/diff.vim.orig',
+  \   '+++ b/autoload/gf/diff.vim',
+  \   '@@ -21,7 +22,7 @@',
+  \   ' "     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.',
+  \   ' "',
+  \   ' " Interface',
+  \   '-function! gf#diff#go_to_hunk(type)',
+  \   '+function! gf#diff#go(type)',
+  \   '   let d = gf#diff#investigate_the_hunk_under_the_cursor()',
+  \   '   if d is 0',
+  \   '     echomsg ''There is no diff hunk to jump.''',
+  \   '@@ -113,7 +114,7 @@ function! gf#diff#investigate_the_hunk_under_the_cursor()',
+  \   '       return 0',
+  \   '     endif',
+  \   '     let [d.from_path, d.to_path] = xs',
+  \   '+  call setpos(''.'', original_position)',
+  \   '-  call setpos(original_position)',
+  \   ' ',
+  \   '   return d',
+  \   ' endfunction',
+  \   'diff --git a/test/internal.input b/test/internal.input',
+  \   'index 5395371..8ac577f 100644',
+  \   '--- a/test/internal.input',
+  \   '+++ b/test/internal.input',
+  \   '@@ -37,7 +38,9 @@ endfunction',
+  \   ' function s:describe__gf_diff_investigate_the_hunk_under_the_cursor()',
+  \   '   It should work properly.',
+  \   ' ',
+  \   '+  tabnew',
+  \   '+    j',
+  \   '-  " FIXME: NWY',
+  \   '+  tabclose!',
+  \   ' endfunction',
+  \   ' ',
+  \   ' ',
+  \ ]
+
   tabnew
-  append!
-diff --git a/autoload/gf/diff.vim.orig b/autoload/gf/diff.vim
-index 469fdb3..b135316 100644
---- a/autoload/gf/diff.vim.orig
-+++ b/autoload/gf/diff.vim
-@@ -21,7 +22,7 @@
- "     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- "
- " Interface
--function! gf#diff#go_to_hunk(type)
-+function! gf#diff#go(type)
-   let d = gf#diff#investigate_the_hunk_under_the_cursor()
-   if d is 0
-     echomsg 'There is no diff hunk to jump.'
-@@ -113,7 +114,7 @@ function! gf#diff#investigate_the_hunk_under_the_cursor()
-       return 0
-     endif
-     let [d.from_path, d.to_path] = xs
-+  call setpos('.', original_position)
--  call setpos(original_position)
- 
-   return d
- endfunction
-diff --git a/test/internal.input b/test/internal.input
-index 5395371..8ac577f 100644
---- a/test/internal.input
-+++ b/test/internal.input
-@@ -37,7 +38,9 @@ endfunction
- function s:describe__gf_diff_investigate_the_hunk_under_the_cursor()
-   It should work properly.
- 
-+  tabnew
-+    j
--  " FIXME: NWY
-+  tabclose!
- endfunction
- 
- 
-.
+    call setline(1, text)
 
     normal! 6gg
     let pos = getpos('.')
