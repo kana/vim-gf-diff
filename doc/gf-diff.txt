@@ -132,6 +132,9 @@ BUGS						*gf-diff-bugs*
 ==============================================================================
 CHANGELOG					*gf-diff-changelog*
 
+0.1.1	2012-01-18T19:30:26+09:00		*gf-diff-changelog-0.1.1*
+	- Improve the cursor position after opening a file.
+
 0.1.0	2012-01-17T20:55:17+09:00		*gf-diff-changelog-0.1.0*
 	- Rewrite to use |gf-user|.
 
