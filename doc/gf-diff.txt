@@ -80,7 +80,7 @@ file and the position.
 Requirements:
 - Vim 7.3 or later
 - |gf-user| 0.0.0 or later
-  (vimscript#****, http://github.com/kana/vim-gf-user)
+  (vimscript#3891, http://github.com/kana/vim-gf-user)
 
 Latest version:
 http://github.com/kana/vim-gf-diff
