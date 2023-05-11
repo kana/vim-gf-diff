@@ -1,0 +1,3 @@
+flavor 'kana/vim-gf-user', '~> 0.0'
+
+# vim: filetype=ruby

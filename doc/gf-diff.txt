@@ -1,9 +1,9 @@
 *gf-diff.txt*	Go to a hunk from diff output
 
-Version @@VERSION@@
+Version 0.1.1
 Script ID: 3892
-Copyright (C) 2011-2012 Kana Natsuno <http://whileimautomaton.net/>
-License: So-called MIT/X license  {{{
+Copyright (C) 2011-2023 Kana Natsuno <https://whileimautomaton.net/>
+License: MIT license  {{{
     Permission is hereby granted, free of charge, to any person obtaining
     a copy of this software and associated documentation files (the
     "Software"), to deal in the Software without restriction, including
@@ -80,13 +80,10 @@ file and the position.
 Requirements:
 - Vim 7.3 or later
 - |gf-user| 0.0.0 or later
-  (vimscript#3891, http://github.com/kana/vim-gf-user)
+  (vimscript#3891, https://github.com/kana/vim-gf-user)
 
 Latest version:
-http://github.com/kana/vim-gf-diff
-
-Document in HTML format:
-http://kana.github.com/config/vim/gf-diff.html
+https://github.com/kana/vim-gf-diff
 
 
 
