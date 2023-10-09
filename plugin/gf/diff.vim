@@ -1,5 +1,5 @@
 " gf-diff - Go to a hunk from diff output
-" Version: 0.1.1
+" Version: 1.0.0
 " Copyright (C) 2011-2023 Kana Natsuno <https://whileimautomaton.net/>
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
