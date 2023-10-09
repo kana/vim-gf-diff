@@ -1,4 +1,4 @@
-*gf-diff.txt*	Go to a hunk from diff output
+*gf-diff.txt*   Go to a hunk from diff output
 
 Version 0.1.1
 Script ID: 3892
@@ -24,7 +24,7 @@ License: MIT license  {{{
     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 }}}
 
-CONTENTS					*gf-diff-contents*
+CONTENTS                                        *gf-diff-contents*
 
 Introduction            |gf-diff-introduction|
 Interface               |gf-diff-interface|
@@ -38,7 +38,7 @@ Changelog               |gf-diff-changelog|
 
 
 ==============================================================================
-INTRODUCTION					*gf-diff-introduction*
+INTRODUCTION                                    *gf-diff-introduction*
 
 *gf-diff* is a Vim plugin to extend |gf| and other commands.  With this
 plugin, you can open the file and locate the cursor to a comfortable position
@@ -48,28 +48,28 @@ review patches and uncommitted changes in Vim.
 Suppose that the current buffer contains the following text (here the most
 left numbers are line numbers):
 >
-	 1 diff --git a/autoload/gf/diff.vim b/autoload/gf/diff.vim
-	 2 index 469fdb3..b135316 100644
-	 3 --- a/autoload/gf/diff.vim
-	 4 +++ b/autoload/gf/diff.vim
-	 5 @@ -21,7 +22,7 @@
-	 6  "     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-	 7  "
-	 8  " Interface
-	 9 -function! gf#diff#go_to_hunk(type)
-	10 +function! gf#diff#go(type)
-	11    let d = gf#diff#investigate_the_hunk_under_the_cursor()
-	12    if d is 0
-	13      echomsg 'There is no diff hunk to jump.'
-	14 @@ -113,7 +114,7 @@ function! gf#diff#investigate_the_hunk_under_the_c
-	15        return 0
-	16      endif
-	17      let [d.from_path, d.to_path] = xs
-	18 +  call setpos('.', original_position)
-	19 -  call setpos(original_position)
-	20
-	21    return d
-	22  endfunction
+         1 diff --git a/autoload/gf/diff.vim b/autoload/gf/diff.vim
+         2 index 469fdb3..b135316 100644
+         3 --- a/autoload/gf/diff.vim
+         4 +++ b/autoload/gf/diff.vim
+         5 @@ -21,7 +22,7 @@
+         6  "     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+         7  "
+         8  " Interface
+         9 -function! gf#diff#go_to_hunk(type)
+        10 +function! gf#diff#go(type)
+        11    let d = gf#diff#investigate_the_hunk_under_the_cursor()
+        12    if d is 0
+        13      echomsg 'There is no diff hunk to jump.'
+        14 @@ -113,7 +114,7 @@ function! gf#diff#investigate_the_hunk_under_the_c
+        15        return 0
+        16      endif
+        17      let [d.from_path, d.to_path] = xs
+        18 +  call setpos('.', original_position)
+        19 -  call setpos(original_position)
+        20
+        21    return d
+        22  endfunction
 <
 If you type |gf| on the 12th line and there is no file whose name is under the
 cursor, "autoload/gf/diff.vim" will be opened and the cursor will be moved to
@@ -89,17 +89,17 @@ https://github.com/kana/vim-gf-diff
 
 
 ==============================================================================
-INTERFACE					*gf-diff-interface*
+INTERFACE                                       *gf-diff-interface*
 
 ------------------------------------------------------------------------------
-FUNCTIONS					*gf-diff-functions*
+FUNCTIONS                                       *gf-diff-functions*
 
-gf#diff#find()					*gf#diff#find()*
-			A |gf-user-extension-function|.
-			The default priority is 2000.
+gf#diff#find()                                  *gf#diff#find()*
+                        A |gf-user-extension-function|.
+                        The default priority is 2000.
 
 ------------------------------------------------------------------------------
-KEY MAPPINGS					*gf-diff-key-mappings*
+KEY MAPPINGS                                    *gf-diff-key-mappings*
 
 See |gf-user-key-mappings|.
 
@@ -107,7 +107,7 @@ See |gf-user-key-mappings|.
 
 
 ==============================================================================
-EXAMPLES					*gf-diff-examples*
+EXAMPLES                                        *gf-diff-examples*
 
 See |gf-user-examples|.
 
@@ -115,7 +115,7 @@ See |gf-user-examples|.
 
 
 ==============================================================================
-BUGS						*gf-diff-bugs*
+BUGS                                            *gf-diff-bugs*
 
 (A) See also |gf-user-bugs|.
 
@@ -127,16 +127,16 @@ BUGS						*gf-diff-bugs*
 
 
 ==============================================================================
-CHANGELOG					*gf-diff-changelog*
+CHANGELOG                                       *gf-diff-changelog*
 
-0.1.1	2012-01-18T19:30:26+09:00		*gf-diff-changelog-0.1.1*
-	- Improve the cursor position after opening a file.
+0.1.1   2012-01-18T19:30:26+09:00               *gf-diff-changelog-0.1.1*
+        - Improve the cursor position after opening a file.
 
-0.1.0	2012-01-17T20:55:17+09:00		*gf-diff-changelog-0.1.0*
-	- Rewrite to use |gf-user|.
+0.1.0   2012-01-17T20:55:17+09:00               *gf-diff-changelog-0.1.0*
+        - Rewrite to use |gf-user|.
 
-0.0.0	2011-12-28T01:06:54+09:00		*gf-diff-changelog-0.0.0*
-	- Initial version.
+0.0.0   2011-12-28T01:06:54+09:00               *gf-diff-changelog-0.0.0*
+        - Initial version.
 
 
 
