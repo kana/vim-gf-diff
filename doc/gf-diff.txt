@@ -24,7 +24,7 @@ License: MIT license  {{{
     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 }}}
 
-CONTENTS                                        *gf-diff-contents*
+CONTENTS                                                    *gf-diff-contents*
 
 Introduction            |gf-diff-introduction|
 Interface               |gf-diff-interface|
@@ -38,7 +38,7 @@ Changelog               |gf-diff-changelog|
 
 
 ==============================================================================
-INTRODUCTION                                    *gf-diff-introduction*
+INTRODUCTION                                            *gf-diff-introduction*
 
 *gf-diff* is a Vim plugin to extend |gf| and other commands.  With this
 plugin, you can open the file and locate the cursor to a comfortable position
@@ -89,17 +89,17 @@ https://github.com/kana/vim-gf-diff
 
 
 ==============================================================================
-INTERFACE                                       *gf-diff-interface*
+INTERFACE                                                  *gf-diff-interface*
 
 ------------------------------------------------------------------------------
-FUNCTIONS                                       *gf-diff-functions*
+FUNCTIONS                                                  *gf-diff-functions*
 
-gf#diff#find()                                  *gf#diff#find()*
+gf#diff#find()                                                *gf#diff#find()*
                         A |gf-user-extension-function|.
                         The default priority is 2000.
 
 ------------------------------------------------------------------------------
-KEY MAPPINGS                                    *gf-diff-key-mappings*
+KEY MAPPINGS                                            *gf-diff-key-mappings*
 
 See |gf-user-key-mappings|.
 
@@ -107,7 +107,7 @@ See |gf-user-key-mappings|.
 
 
 ==============================================================================
-EXAMPLES                                        *gf-diff-examples*
+EXAMPLES                                                    *gf-diff-examples*
 
 See |gf-user-examples|.
 
@@ -115,7 +115,7 @@ See |gf-user-examples|.
 
 
 ==============================================================================
-BUGS                                            *gf-diff-bugs*
+BUGS                                                            *gf-diff-bugs*
 
 (A) See also |gf-user-bugs|.
 
@@ -127,15 +127,15 @@ BUGS                                            *gf-diff-bugs*
 
 
 ==============================================================================
-CHANGELOG                                       *gf-diff-changelog*
+CHANGELOG                                                  *gf-diff-changelog*
 
-0.1.1   2012-01-18T19:30:26+09:00               *gf-diff-changelog-0.1.1*
+0.1.1   2012-01-18T19:30:26+09:00                    *gf-diff-changelog-0.1.1*
         - Improve the cursor position after opening a file.
 
-0.1.0   2012-01-17T20:55:17+09:00               *gf-diff-changelog-0.1.0*
+0.1.0   2012-01-17T20:55:17+09:00                    *gf-diff-changelog-0.1.0*
         - Rewrite to use |gf-user|.
 
-0.0.0   2011-12-28T01:06:54+09:00               *gf-diff-changelog-0.0.0*
+0.0.0   2011-12-28T01:06:54+09:00                    *gf-diff-changelog-0.0.0*
         - Initial version.
 
 
