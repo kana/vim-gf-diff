@@ -106,6 +106,22 @@ See |gf-user-key-mappings|.
 
 
 
+------------------------------------------------------------------------------
+CONFIGURATION                                          *gf-diff-configuration*
+
+b:vim_gf_diff_base_directory
+
+If your diff uses relative paths, by default, vim-gf-diff uses |getcwd()| to
+resolve to absolute paths. b:vim_gf_diff_base_directory specifies an
+alternate directory to resolve relative paths into absolute paths.
+
+let b:vim_gf_diff_base_directory = "/some/absolute/directory"
+
+Now all relative paths will be be relative to "/some/absolute/directory"
+
+
+
+
 ==============================================================================
 EXAMPLES                                                    *gf-diff-examples*
 
