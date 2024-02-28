@@ -82,7 +82,38 @@ endfunction
 function! gf#diff#parse_diff_header_line(line)  "{{{2
   " Line -> Maybe (LineNo, LineNo)
   let parts = matchlist(a:line, '\v^diff \-\-git %(a\/)?(\S+) %(b\/)?(\S+)$')
-  return parts == [] ? 0 : parts[1:2]
+
+  if parts == []
+    return 0
+  endif
+
+  let from_path = parts[1]
+  let to_path = parts[2]
+  let directory = get(b:, 'vim_gf_diff_base_directory')
+
+  if empty(directory)
+    return [from_path, to_path]
+  end
+
+  if has('unix')
+    if from_path !~# '^/'
+      let from_path = b:vim_gf_diff_base_directory .. '/' .. from_path
+    endif
+
+    if to_path !~# '^/'
+      let to_path = b:vim_gf_diff_base_directory .. '/' .. to_path
+    endif
+  elseif has("win32")
+    if from_path !~# '^[A-Z]:'
+      let from_path = b:vim_gf_diff_base_directory .. '\' .. from_path
+    endif
+
+    if to_path !~# '^[A-Z]:'
+      let to_path = b:vim_gf_diff_base_directory .. '\' .. to_path
+    endif
+  endif
+
+  return [from_path, to_path]
 endfunction
 
 
